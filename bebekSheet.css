@@ -1,0 +1,109 @@
+@property --progress { 
+/* you can animate custom properties ! */
+    syntax: "<length-percentage>";
+    inherits: false;
+    initial-value: 0;
+}
+@property --progressPlay { 
+/* you can animate custom properties ! */
+    syntax: "<length-percentage>";
+    inherits: false;
+    initial-value: 0;
+}
+@property --progressHung { 
+    syntax: "<length-percentage>";
+    inherits: false;
+    initial-value: 0;
+}
+
+body{
+    background-color: hotpink;
+}
+
+/* interaction > .button {
+
+} */
+h2 {
+    text-align: center;
+    color: aqua;
+}
+
+
+.bebek {
+    height: 400px;
+    width: 90%;
+    border-width: 5px;
+    border-style: solid;
+    border-color: aqua; 
+    padding-left: 5%;
+    padding-top: 4px;
+
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-template-rows: 1fr 4fr;
+    
+    grid-template-areas: 
+    "Header flex-container"
+    "Middle Middle"
+    "Next   Next"
+    "End    End";
+}
+
+.bebek > .flex-container {
+    grid-area: flex-container;
+    display: flex;
+    flex-direction: row;
+}
+@keyframes hungerBarAnimation {
+    0% { width: 0%;} 
+ /* when the animation starts (at 0% it is smol) */
+    100% {width: 100%; background: rgb(27, 90, 227);}
+}
+
+/* so hashtags refer to ids not classes
+#progress {
+    animation: hungerBarAnimation 5s forwards;
+} */
+
+[id="sleepProgress"] {
+    background: conic-gradient(aqua var(--progress,1%),
+    rgb(17, 58, 58) 0%);
+    transition: --progress 800ms;
+}
+
+[id="hungerProgress"] {
+    background: conic-gradient(aqua var(--progressHung,1%),
+    rgb(17, 58, 58) 0%);
+    transition: --progressHung 800ms;
+}
+
+[role="statsProgress"]{
+    --size: 102px;
+    --bar-width: 18px;
+    /* custom properties */
+    font-size: 1.5rem;
+    width: var(--size);
+    aspect-ratio: 1; 
+    /* square with rounded edges to make circle */
+    border-radius: 55%;
+    display: grid;
+    place-items: center;
+    &::after {
+        content: attr(aria-valuenow) " %";
+        border-radius: inherit;
+        background: hotpink;
+        width: calc(100% - var(--bar-width));
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+
+    }
+    
+}
+
+[id="playProgress"]{
+    background: conic-gradient(aqua var(--progressPlay,1%),
+    rgb(17, 58, 58) 0%);
+    transition: --progressPlay 800ms;
+    
+}
