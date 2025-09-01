@@ -1,37 +1,44 @@
 <!DOCTYPE HTML>
 <html>
-   <head>
-      <link rel="stylesheet" type="text/css" href="bebekSheet.css"/>
-      <meta charset="UTF-8"  />
-      <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-      />
-      <title>Tomogyatchi Bebek!</title>
-   </head>
+   <div class="gridContainer">
+      <head>
+         <div class="blueBacking"><h2 class="HeadingBebek"></h2></div>
+         <link rel="stylesheet" type="text/css" href="bebekSheet.css"/>
+         <meta charset="UTF-8"  />
+         <meta
+         http-equiv="Content-Security-Policy"
+         content="default-src 'self'; script-src 'self'"
+         />
+         <title>Tomogyatchi Bebek!</title>
+      </head>
 
    <body>
-      <h2>Bebek Simulator</h2>
-         <div class="bebek">
+      <div class="bodyBackground">
+         <div class="upperShell">
             <div class="flex-container">
-               <div class="hungerBar" id="myBar"></div>
-               <div class="sleepBar"></div>
-               <div class="playBar"></div>
+                  <div class="hungerBar" id="myBar"></div>
+                  <div class="sleepBar"></div>
+                  <div class="playBar"></div>
+               </div>
             </div>
+         
+         <div class="bebekSpace">
+            <img href="apple.png"></div>
          </div>
 
-         <div class="feed">
+         <div class="lowerShell" >
+            <input type="image" id="feeder" alt="feed" src="eatButImg.svg" />
+            <input type="image" id="sleep" alt="sleep" src="sleepButImg.svg" />
+            <input type="image" id="play" alt="play" src="playButImg.svg" />
+            <!-- <button type="button" id="feeder" role="button">Feed!</button> -->
+            <p>p</p>
          </div>
-
-      <div class="interaction" >
-         <button type="button" id="feeder" role="button">Feed!</button>
-         <button type="button" id="sleep" role="button">Sleep!</button>
-         <button type="button" id="play" role="button">Play!</button>
-         <p>p</p>
       </div>
+         
    </body>
  </div>
 
+   </div>
 <script src="tomo.js" type="module" defer></script> <!-- defer means continue html download at the same time as js--> 
 
 </html>

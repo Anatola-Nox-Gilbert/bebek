@@ -1,10 +1,15 @@
 
 const para = document.querySelector("p")
 
-let hungerDepletion = false
+let hungerDepletion = true
+let lightOn = true;
 const playBar = document.querySelector(".playBar")
 const sleepBar = document.querySelector(".sleepBar")
 const hungerBar = document.querySelector(".hungerBar")
+enableStats();
+getHungry()
+getSleepy();
+
 function enableStats(){
     sleepBar.setAttribute("role", "statsProgress")
     sleepBar.setAttribute("id", "sleepProgress")
@@ -23,27 +28,22 @@ function enableStats(){
     hungerBar.setAttribute("id", "hungerProgress")
     hungerBar.style.setProperty('--progressHung', 100 + "%");
     hungerBar.style.backgroundColor = "rgb(17, 58, 58)"
-    getSleepy()
 }
 // class progressbar = my sleepbar class - its const refers to that class
-enableStats();
 
 const sleepButton = document.getElementById("sleep")
 let sleepMinutes = 0;
-let lightOn = true;
 let count = 0;
 sleepButton.addEventListener("click", async (e) => {
-    if(count < 5){
-    count++
-    }
-    sleepBar.setAttribute("aria-valuenow", 20*count) // update aria-val 
-    sleepBar.style.setProperty('--progress', 20*count + "%");
-
-    if(lightOn == true){
-        //increase sleepMinutes by 4 for every minute
+    let temp = parseInt(sleepBar.getAttribute("aria-valuenow"))
+    if(lightOn){
+    lightOn = false
+    getRest()
     }
     else{
-        //stop?
+        lightOn = true
+        getSleepy()
+        // if getRest is running, stop it
     }
 })
 
@@ -59,15 +59,14 @@ playButton.addEventListener( "click", async (e) =>{
 })
 
 const hungerButton = document.getElementById("feeder")
-let hungMinutes = 0
 let hungCount = 0
 hungerButton.addEventListener( "click", async (e) =>{
-    if(hungCount < 5){
-        hungCount++
+    let temp = parseInt(hungerBar.getAttribute("aria-valuenow"))
+    if(temp < 81){
+        hungerBar.setAttribute("aria-valuenow", temp+20) // update aria-val 
+        hungerBar.style.setProperty('--progressHung', temp+20 + "%");
     }
-    hungerBar.setAttribute("aria-valuenow", 20*hungCount) // update aria-val 
-    hungerBar.style.setProperty('--progressHung', 20*hungCount + "%");
-    if(!hungerDepletion){
+    if(!hungerDepletion){ //im using this to control how many times getHungry is called at once
         hungerDepletion = true
         setTimeout(getHungry,1800)
     }
@@ -93,9 +92,18 @@ function getHungry(){
 
 function getSleepy(){
     let temp = parseInt(sleepBar.getAttribute("aria-valuenow"))
-    if(temp > 0){
+    if(temp > 1 && lightOn){
         sleepBar.setAttribute("aria-valuenow", temp-1) 
-        sleepBar.style.setProperty('--progress', temp-1 + "%");
-        setTimeout(getSleep(28000))
+        sleepBar.style.setProperty('--progress', temp-1 + "%")
+        setTimeout(getSleepy,1800)
+    }
+}
+
+function getRest(){
+    let temp = parseInt(sleepBar.getAttribute("aria-valuenow"))
+    if(temp > 1 && !lightOn && temp < 100){
+        sleepBar.setAttribute("aria-valuenow", temp+1) 
+        sleepBar.style.setProperty('--progress', temp+1 + "%")
+        setTimeout(getRest,2000)
     }
 }
